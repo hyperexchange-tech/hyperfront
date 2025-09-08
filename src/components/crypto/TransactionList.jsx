@@ -83,7 +83,7 @@ const getAmountDisplay = (transaction, privateMode) => {
     case "send":
     case "withdraw":
       return {
-        primary: `-${amount} ${symbol}`,
+        primary: `-${Math.abs(amount)} ${symbol}`,
         secondary: `$${(transaction.value || 0).toFixed(2)}`,
         color: "text-destructive"
       };
