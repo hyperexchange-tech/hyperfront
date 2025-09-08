@@ -81,6 +81,9 @@ const Dashboard = () => {
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
 
+  // Calculate unread notifications count
+  const unreadNotificationsCount = notifications.filter(n => !n.isRead).length;
+
   // Sample notifications data
   const notifications = [
     {
@@ -221,9 +224,9 @@ const Dashboard = () => {
             onClick={() => setIsNotificationModalOpen(true)}
           >
             <Bell size={20} />
-            {notifications.filter(n => !n.isRead).length > 0 && (
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full flex items-center justify-center">
-                <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
+            {unreadNotificationsCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-medium">
+                {unreadNotificationsCount}
               </span>
             )}
           </Button>
