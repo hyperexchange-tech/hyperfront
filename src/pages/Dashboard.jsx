@@ -81,9 +81,6 @@ const Dashboard = () => {
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
 
-  // Calculate unread notifications count
-  const unreadNotificationsCount = notifications.filter(n => !n.isRead).length;
-
   // Sample notifications data
   const notifications = [
     {
@@ -147,6 +144,9 @@ const Dashboard = () => {
       isRead: true
     }
   ];
+
+  // Calculate unread notifications count
+  const unreadNotificationsCount = notifications.filter(n => !n.isRead).length;
 
   const handleDepositClick = () => {
     setIsDepositModalOpen(true);
