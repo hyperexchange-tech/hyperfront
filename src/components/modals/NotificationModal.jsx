@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "@/lib/date";
+import { useModal } from "@/context/ModalContext";
+import { useEffect } from "react";
 
 const getNotificationIcon = (type) => {
   switch (type) {
@@ -106,7 +108,12 @@ const NotificationItem = ({ notification, index }) => {
 };
 
 const NotificationModal = ({ isOpen, onClose, notifications = [] }) => {
+  const { setModalOpen } = useModal();
   const unreadCount = notifications.filter(n => !n.isRead).length;
+
+  useEffect(() => {
+    setModalOpen(isOpen);
+  }, [isOpen, setModalOpen]);
 
   const handleMarkAllRead = () => {
     // In a real app, this would update the notifications in the backend
