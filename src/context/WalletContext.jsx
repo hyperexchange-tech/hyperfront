@@ -301,19 +301,8 @@ export const WalletProvider = ({ children }) => {
         // Refresh wallet balances from backend
         await fetchWalletBalances();
 
-        // Add transaction to local state
-        const newTransaction = {
-          id: Date.now(),
-          type: "send",
-          cryptoId,
-          symbol: crypto.symbol,
-          amount,
-          address,
-          timestamp: new Date().toISOString(),
-          value: amount * crypto.price,
-        };
-
-        addTransaction(newTransaction);
+        // Refresh transactions from backend to get the latest data
+        await fetchTransactions();
 
         toast({
           title: "Transaction Successful",
