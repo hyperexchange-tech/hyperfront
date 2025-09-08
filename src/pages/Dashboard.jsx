@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowUpRight, ArrowDownLeft, RefreshCw, List, Search, Eye, EyeOff, ChevronDown, History, Repeat, Filter, Wallet, Bell, LifeBuoy, Plus } from 'lucide-react';
+import { ArrowUpRight, ArrowDownLeft, RefreshCw, List, Search, Eye, EyeOff, ChevronDown, History, Repeat, Filter, Wallet, Bell, Headphones, Plus } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -152,7 +152,7 @@ const Dashboard = () => {
             <Bell size={20} />
           </Button>
           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-full">
-            <LifeBuoy size={20} />
+            <Headphones size={20} />
           </Button>
         </div>
       </motion.div>
