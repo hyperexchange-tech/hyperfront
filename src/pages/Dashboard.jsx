@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TransferTypeModal from "@/components/modals/TransferTypeModal";
 import DepositTypeModal from "@/components/modals/DepositTypeModal";
+import NotificationModal from "@/components/modals/NotificationModal";
 
 const ActionButton = ({ icon: Icon, label, onClick, className }) => (
   <motion.div 
@@ -78,6 +79,71 @@ const Dashboard = () => {
   const [isTransferModalOpen, setIsTransferModalOpen] = useState(false);
   const [isBalanceVisible, setIsBalanceVisible] = useState(true);
   const [isDepositModalOpen, setIsDepositModalOpen] = useState(false);
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+
+  // Sample notifications data
+  const notifications = [
+    {
+      id: 1,
+      type: "deposit",
+      title: "Deposit Received",
+      message: "Your Bitcoin deposit has been confirmed and added to your wallet.",
+      timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(), // 30 minutes ago
+      isRead: false,
+      amount: "0.00125",
+      currency: "BTC"
+    },
+    {
+      id: 2,
+      type: "promotion",
+      title: "Special Offer: 0% Trading Fees",
+      message: "Trade with zero fees for the next 24 hours! Limited time offer for premium users.",
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
+      isRead: false
+    },
+    {
+      id: 3,
+      type: "security",
+      title: "New Login Detected",
+      message: "We detected a new login from Chrome on Windows. If this wasn't you, please secure your account.",
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 4).toISOString(), // 4 hours ago
+      isRead: true
+    },
+    {
+      id: 4,
+      type: "withdrawal",
+      title: "Withdrawal Processed",
+      message: "Your Ethereum withdrawal has been successfully processed and sent to your external wallet.",
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), // 1 day ago
+      isRead: true,
+      amount: "2.5",
+      currency: "ETH"
+    },
+    {
+      id: 5,
+      type: "account",
+      title: "Account Verification Complete",
+      message: "Your identity verification has been approved. You can now access all platform features.",
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(), // 2 days ago
+      isRead: true
+    },
+    {
+      id: 6,
+      type: "promotion",
+      title: "New Feature: Auto-Invest",
+      message: "Set up automatic recurring purchases for your favorite cryptocurrencies. Start building your portfolio effortlessly!",
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3).toISOString(), // 3 days ago
+      isRead: true
+    },
+    {
+      id: 7,
+      type: "system",
+      title: "Scheduled Maintenance",
+      message: "We'll be performing scheduled maintenance on Sunday, 2:00 AM - 4:00 AM UTC. Trading will be temporarily unavailable.",
+      timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5).toISOString(), // 5 days ago
+      isRead: true
+    }
+  ];
 
   const handleDepositClick = () => {
     setIsDepositModalOpen(true);
@@ -148,8 +214,18 @@ const Dashboard = () => {
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-full">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-full relative"
+            onClick={() => setIsNotificationModalOpen(true)}
+          >
             <Bell size={20} />
+            {notifications.filter(n => !n.isRead).length > 0 && (
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full flex items-center justify-center">
+                <span className="w-1.5 h-1.5 bg-white rounded-full"></span>
+              </span>
+            )}
           </Button>
           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-full">
             <HelpCircle size={20} />
@@ -315,6 +391,12 @@ const Dashboard = () => {
         isOpen={isDepositModalOpen}
         onClose={() => setIsDepositModalOpen(false)}
         onSelectType={handleDepositTypeSelect}
+      />
+
+      <NotificationModal
+        isOpen={isNotificationModalOpen}
+        onClose={() => setIsNotificationModalOpen(false)}
+        notifications={notifications}
       />
     </div>
   );
