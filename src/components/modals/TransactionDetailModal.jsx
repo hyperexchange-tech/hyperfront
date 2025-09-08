@@ -252,7 +252,7 @@ const TransactionDetailModal = ({ isOpen, onClose, transaction, cryptos }) => {
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-foreground font-mono">
-                          {transaction.id ? `${transaction.id.substring(0, 8)}...` : "N/A"}
+                          {transaction.id ? `${String(transaction.id).substring(0, 8)}...` : "N/A"}
                         </span>
                         {transaction.id && (
                           <Button
