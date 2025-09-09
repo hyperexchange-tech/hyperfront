@@ -108,7 +108,7 @@ const Receive = () => {
                     level="Q"
                     includeMargin={true}
                     imageSettings={{
-                      src: "/Remove background project.png",
+                      src: "/my-new-logo.png",
                       excavate: true,
                       width: 40,
                       height: 40,
