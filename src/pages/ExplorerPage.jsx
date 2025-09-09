@@ -202,7 +202,7 @@ const ExplorerPage = () => {
               <div className="space-y-4">
                 <div className="flex justify-center">
                   <img 
-                    src="/Remove background project.png" 
+                    src="/my-new-logo.png" 
                     alt="HyperX Logo" 
                     className="w-24 h-24 object-contain drop-shadow-lg"
                   />
