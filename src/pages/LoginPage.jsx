@@ -24,7 +24,7 @@ const LoginPage = () => {
       <div className="text-center pt-6 pb-6">
         <div className="flex justify-center items-center mb-3">
           <img 
-            src="/Remove background project.png" 
+            src="/my-new-logo.png" 
             alt="HyperX Logo" 
             className="w-24 h-24 object-contain drop-shadow-lg"
           />

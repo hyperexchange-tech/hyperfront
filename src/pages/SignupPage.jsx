@@ -54,7 +54,7 @@ const SignupPage = () => {
       <div className="text-center pt-6 pb-5">
         <div className="flex justify-center items-center mb-3">
           <img 
-            src="/Remove background project.png" 
+            src="/my-new-logo.png" 
             alt="HyperX Logo" 
             className="w-20 h-20 object-contain drop-shadow-lg"
           />
