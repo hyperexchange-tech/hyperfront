@@ -12,8 +12,8 @@ const ExplorerPage = () => {
   const { toast } = useToast();
   const iframeRef = useRef(null);
   
-  const [url, setUrl] = useState("https://www.google.com");
-  const [currentUrl, setCurrentUrl] = useState("https://www.google.com");
+  const [url, setUrl] = useState("https://www.offabuy.com");
+  const [currentUrl, setCurrentUrl] = useState("https://www.offabuy.com");
   const [isLoading, setIsLoading] = useState(false);
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoForward, setCanGoForward] = useState(false);
@@ -78,7 +78,7 @@ const ExplorerPage = () => {
   };
 
   const handleGoHome = () => {
-    navigateToUrl("https://www.google.com");
+    navigateToUrl("https://www.offabuy.com");
   };
 
   const handleSiteClick = (siteUrl) => {
