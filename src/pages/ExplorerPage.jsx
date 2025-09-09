@@ -269,7 +269,7 @@ const ExplorerPage = () => {
           className="w-full h-full border-none"
           onLoad={handleIframeLoad}
           onError={handleIframeError}
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-modals"
           title="Web Browser"
         />}
       </div>
