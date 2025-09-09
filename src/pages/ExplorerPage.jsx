@@ -12,11 +12,12 @@ const ExplorerPage = () => {
   const { toast } = useToast();
   const iframeRef = useRef(null);
   
-  const [url, setUrl] = useState("https://www.offabuy.com");
-  const [currentUrl, setCurrentUrl] = useState("https://www.offabuy.com");
+  const [url, setUrl] = useState("");
+  const [currentUrl, setCurrentUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoForward, setCanGoForward] = useState(false);
+  const [showCustomHomePage, setShowCustomHomePage] = useState(true);
 
   const popularSites = [
     { name: "Google", url: "https://www.google.com", icon: "🔍" },
@@ -29,20 +30,29 @@ const ExplorerPage = () => {
 
   const handleUrlSubmit = (e) => {
     e.preventDefault();
-    navigateToUrl(url);
+    if (url.trim()) {
+      navigateToUrl(url);
+    }
   };
 
   const navigateToUrl = (targetUrl) => {
     let formattedUrl = targetUrl;
     
-    // Add https:// if no protocol is specified
+    // Check if it's a search query or a URL
     if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
-      formattedUrl = `https://${formattedUrl}`;
+      // If it doesn't contain a dot, treat it as a search query
+      if (!formattedUrl.includes('.')) {
+        formattedUrl = `https://www.google.com/search?q=${encodeURIComponent(formattedUrl)}`;
+      } else {
+        // Otherwise, add https:// prefix
+        formattedUrl = `https://${formattedUrl}`;
+      }
     }
     
     setIsLoading(true);
     setCurrentUrl(formattedUrl);
     setUrl(formattedUrl);
+    setShowCustomHomePage(false);
   };
 
   const handleIframeLoad = () => {
@@ -78,7 +88,10 @@ const ExplorerPage = () => {
   };
 
   const handleGoHome = () => {
-    navigateToUrl("https://www.offabuy.com");
+    setShowCustomHomePage(true);
+    setUrl("");
+    setCurrentUrl("");
+    setIsLoading(false);
   };
 
   const handleSiteClick = (siteUrl) => {
@@ -181,7 +194,67 @@ const ExplorerPage = () => {
 
       {/* Browser Content */}
       <div className="flex-1 relative bg-background">
-        {isLoading && (
+        {/* Custom Home Page */}
+        {showCustomHomePage && (
+          <div className="w-full h-full flex flex-col items-center justify-center p-8 bg-background">
+            <div className="w-full max-w-2xl text-center space-y-8">
+              {/* Logo */}
+              <div className="space-y-4">
+                <div className="flex justify-center">
+                  <img 
+                    src="/Remove background project.png" 
+                    alt="HyperX Logo" 
+                    className="w-24 h-24 object-contain drop-shadow-lg"
+                  />
+                </div>
+                <h1 className="text-4xl font-bold text-foreground">HyperX Search</h1>
+                <p className="text-muted-foreground">Browse the web securely from your crypto wallet</p>
+              </div>
+
+              {/* Search Bar */}
+              <form onSubmit={handleUrlSubmit} className="w-full max-w-xl mx-auto">
+                <div className="relative">
+                  <Input
+                    type="text"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    placeholder="Search Google or enter a website URL..."
+                    className="h-14 pl-6 pr-16 bg-card/80 border-border/50 rounded-full text-base shadow-lg focus:shadow-xl transition-shadow duration-200"
+                  />
+                  <Button 
+                    type="submit" 
+                    size="sm" 
+                    className="absolute right-2 top-2 h-10 px-4 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                  >
+                    <Search className="h-4 w-4 mr-1" />
+                    Search
+                  </Button>
+                </div>
+              </form>
+
+              {/* Quick Access Sites */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium text-foreground">Quick Access</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {popularSites.map((site) => (
+                    <Button
+                      key={site.name}
+                      variant="outline"
+                      className="h-12 justify-start gap-3 bg-card/50 hover:bg-card/80 border-border/50 rounded-xl transition-all duration-200"
+                      onClick={() => handleSiteClick(site.url)}
+                    >
+                      <span className="text-lg">{site.icon}</span>
+                      <span className="font-medium">{site.name}</span>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Loading Overlay */}
+        {!showCustomHomePage && isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-10">
             <div className="text-center">
               <RefreshCw className="h-8 w-8 animate-spin text-primary mx-auto mb-2" />
@@ -190,7 +263,7 @@ const ExplorerPage = () => {
           </div>
         )}
         
-        <iframe
+        {!showCustomHomePage && <iframe
           ref={iframeRef}
           src={currentUrl}
           className="w-full h-full border-none"
@@ -198,7 +271,7 @@ const ExplorerPage = () => {
           onError={handleIframeError}
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
           title="Web Browser"
-        />
+        />}
       </div>
 
       {/* Security Notice */}
