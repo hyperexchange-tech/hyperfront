@@ -42,7 +42,7 @@ const ExplorerPage = () => {
     if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
       // If it doesn't contain a dot, treat it as a search query
       if (!formattedUrl.includes('.')) {
-        formattedUrl = `https://www.google.com/search?q=${encodeURIComponent(formattedUrl)}`;
+        formattedUrl = `https://duckduckgo.com/?q=${encodeURIComponent(formattedUrl)}`;
       } else {
         // Otherwise, add https:// prefix
         formattedUrl = `https://${formattedUrl}`;
