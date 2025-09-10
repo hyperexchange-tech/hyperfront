@@ -49,7 +49,6 @@ const AppContent = () => {
             alt="HyperX Logo" 
             className="w-24 h-24 object-contain drop-shadow-lg animate-pulse"
           />
-          <p className="text-sm text-muted-foreground">Loading...</p>
         </div>
       </div>
     );
