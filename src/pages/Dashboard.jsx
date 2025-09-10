@@ -237,7 +237,7 @@ const Dashboard = () => {
       </motion.div>
       
       <motion.div variants={item} initial="hidden" animate="show">
-        <Card className="crypto-card border-none p-5">
+        <Card className="crypto-card border-none p-5 hover:shadow-lg transition-all duration-300">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Wallet size={16} />
@@ -272,7 +272,7 @@ const Dashboard = () => {
           <div className="flex flex-row items-center justify-between md:flex-col md:items-start mt-4">
             <Button
               onClick={handleDepositClick}
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg active:scale-[0.98]"
             >
               <Plus className="h-4 w-4 mr-2" />
               Deposit
@@ -287,14 +287,14 @@ const Dashboard = () => {
         animate="show"
         className="grid grid-cols-4 gap-x-2 gap-y-4 items-start justify-items-center px-2 py-4"
       >
-        <ActionButton icon={ArrowUpRight} label="Send" onClick={handleSendClick} />
+        <ActionButton icon={ArrowUpRight} label="Send" onClick={handleSendClick} className="hover:scale-105 transition-transform duration-200" />
         <ActionButton icon={ArrowDownLeft} label="Receive" onClick={() => navigate("/receive")} />
         <ActionButton icon={Repeat} label="Convert" onClick={() => navigate("/convert")} />
         <ActionButton icon={History} label="History" onClick={() => navigate("/history")} />
       </motion.div>
       
       <motion.div variants={item} initial="hidden" animate="show">
-        <Card className="crypto-card border-none p-4">
+        <Card className="crypto-card border-none p-4 hover:shadow-md transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="font-semibold text-sm">Check $NEW_COIN airdrop!</p>
@@ -308,7 +308,7 @@ const Dashboard = () => {
       <motion.div variants={item} initial="hidden" animate="show">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-4 bg-card crypto-card border-none">
-            <TabsTrigger value="crypto" className="data-[state=active]:bg-muted/70 data-[state=active]:text-primary">Crypto</TabsTrigger>
+            <TabsTrigger value="crypto" className="data-[state=active]:bg-muted/70 data-[state=active]:text-primary transition-all duration-200">Crypto</TabsTrigger>
             <TabsTrigger value="nft" disabled>NFT</TabsTrigger>
             <TabsTrigger value="defi" disabled>DeFi</TabsTrigger>
             <TabsTrigger value="approvals" disabled>Approvals</TabsTrigger>

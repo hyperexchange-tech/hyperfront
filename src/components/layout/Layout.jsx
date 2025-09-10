@@ -61,7 +61,7 @@ const Layout = ({ children }) => {
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
       {!isExplorerPage && (
-        <header className="sticky top-0 z-50 flex items-center justify-between p-4 md:hidden">
+        <header className="sticky top-0 z-50 flex items-center justify-between p-4 md:hidden bg-background/95 backdrop-blur-md border-b border-border/30">
         <Link to="/" className="flex items-center gap-2">
           <Wallet className="h-6 w-6 text-primary" />
           <span className="font-bold text-xl">HyperX</span>
