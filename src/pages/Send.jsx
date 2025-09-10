@@ -10,6 +10,7 @@ import { CryptoIcon } from "@/components/crypto/CryptoIcon";
 import { useWallet } from "@/context/WalletContext";
 import { useToast } from "@/components/ui/use-toast";
 import PinConfirmationModal from "@/components/modals/PinConfirmationModal";
+import QrScannerModal from "@/components/modals/QrScannerModal";
 
 const Send = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Send = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPinModalOpen, setIsPinModalOpen] = useState(false);
   const [pendingTransaction, setPendingTransaction] = useState(null);
+  const [isQrScannerOpen, setIsQrScannerOpen] = useState(false);
 
   // Set selected crypto from navigation state if available
   useEffect(() => {
@@ -47,12 +49,12 @@ const Send = () => {
   };
 
   const handleScanQR = () => {
-    // Placeholder for QR code scanning functionality
-    // In a real app, this would open the device camera to scan QR codes
-    toast({
-      title: "QR Scanner",
-      description: "QR code scanning feature coming soon!",
-    });
+    setIsQrScannerOpen(true);
+  };
+
+  const handleQrScan = (scannedAddress) => {
+    setAddress(scannedAddress);
+    setIsQrScannerOpen(false);
   };
 
   const handleSubmit = (e) => {
@@ -350,6 +352,12 @@ const Send = () => {
         onClose={handlePinModalClose}
         onConfirm={handlePinConfirmed}
         transactionType="external transfer"
+      />
+
+      <QrScannerModal
+        isOpen={isQrScannerOpen}
+        onClose={() => setIsQrScannerOpen(false)}
+        onScan={handleQrScan}
       />
     </div>
   );
