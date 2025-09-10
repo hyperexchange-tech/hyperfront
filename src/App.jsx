@@ -43,7 +43,14 @@ const AppContent = () => {
   if (loading && !user) { 
     return (
       <div className="min-h-screen flex items-center justify-center bg-background bg-mesh text-foreground">
-        <p>Initializing App...</p>
+        <div className="flex flex-col items-center gap-4">
+          <img 
+            src="/my-new-logo.png" 
+            alt="HyperX Logo" 
+            className="w-24 h-24 object-contain drop-shadow-lg animate-pulse"
+          />
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
       </div>
     );
   }
