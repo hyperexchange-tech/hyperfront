@@ -283,7 +283,7 @@ const Dashboard = () => {
               <ChevronLeft size={14} className="transform rotate-180" />
             </div>
           )}
-          <div className="relative min-h-[200px]">
+          <div className="relative min-h-[140px]">
             <AnimatePresence mode="wait">
               {currentPage === 0 ? (
                 <motion.div
@@ -298,7 +298,7 @@ const Dashboard = () => {
                   onDragEnd={(e, { offset }) => {
                     if (offset.x < -50) handleSwipe('left');
                   }}
-                  className="absolute inset-0 p-5"
+                  className="absolute inset-0 p-4"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -321,7 +321,7 @@ const Dashboard = () => {
                       {isBalanceVisible ? `$${totalBalance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '********'}
                     </h1>
                   )}
-                  <div className="flex items-center text-xs mb-3">
+                  <div className="flex items-center text-xs mb-2">
                     <span className={cn(simulatedDailyChange >= 0 ? "text-green-500" : "text-red-500")}>
                       {isBalanceVisible
                         ? `${simulatedDailyChange >= 0 ? "+" : ""}$${Math.abs(simulatedDailyChange).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${simulatedDailyPercent.toFixed(2)}%) 1D`
@@ -343,7 +343,7 @@ const Dashboard = () => {
                   onDragEnd={(e, { offset }) => {
                     if (offset.x > 50) handleSwipe('right');
                   }}
-                  className="absolute inset-0 p-5"
+                  className="absolute inset-0 p-4"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-3 text-sm text-muted-foreground">
@@ -381,7 +381,7 @@ const Dashboard = () => {
                       {isBalanceVisible ? `${getSelectedFiatData()?.code === 'NGN' ? '₦' : getSelectedFiatData()?.code === 'ZAR' ? 'R' : getSelectedFiatData()?.code === 'GHS' ? '₵' : 'KSh'}${getSelectedFiatBalance().toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '********'}
                     </h1>
                   )}
-                  <div className="flex items-center text-xs mb-3">
+                  <div className="flex items-center text-xs mb-2">
                     <span className="text-green-500">
                       {isBalanceVisible
                         ? `+${getSelectedFiatData()?.code === 'NGN' ? '₦' : getSelectedFiatData()?.code === 'ZAR' ? 'R' : getSelectedFiatData()?.code === 'GHS' ? '₵' : 'KSh'}${(getSelectedFiatBalance() * 0.021).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (2.1%) 1D`
@@ -394,7 +394,7 @@ const Dashboard = () => {
             </AnimatePresence>
           </div>
 
-          <div className="px-5 pb-5">
+          <div className="px-4 pb-4">
             <div className="flex flex-row items-center justify-between md:flex-col md:items-start">
               <Button
                 onClick={handleDepositClick}
