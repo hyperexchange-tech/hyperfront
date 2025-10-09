@@ -113,38 +113,47 @@ const Layout = ({ children }) => {
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
       {!isExplorerPage && (
-        <header className="sticky top-0 z-50 flex items-center justify-between p-4 md:hidden bg-background/95 backdrop-blur-md border-b border-border/30">
+        <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 md:hidden bg-background/95 backdrop-blur-md border-b border-border/30">
         {user ? (
           <div
             onClick={() => navigate('/profile')}
-            className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity"
           >
-            <div className="w-10 h-10 rounded-full bg-white dark:bg-white flex items-center justify-center border-2 border-primary/30 overflow-hidden shrink-0">
+            <div className="w-9 h-9 rounded-full bg-white dark:bg-white flex items-center justify-center border-2 border-primary/30 overflow-hidden shrink-0">
               <img
                 src="/my-new-logo.png"
                 alt="HyperX Logo"
-                className="w-7 h-7 object-contain"
+                className="w-6 h-6 object-contain"
               />
             </div>
-            <span className="text-sm font-semibold text-foreground">Hi, {getUserName()}</span>
+            <div className="flex flex-col">
+              <span className="text-xs text-muted-foreground leading-none mb-0.5">Welcome back</span>
+              <span className="text-sm font-semibold text-foreground leading-none">{getUserName()}</span>
+            </div>
           </div>
         ) : (
           <Link to="/" className="flex items-center gap-2">
-            <Wallet className="h-6 w-6 text-primary" />
-            <span className="font-bold text-xl">HyperX</span>
+            <div className="w-8 h-8 rounded-full bg-white dark:bg-white flex items-center justify-center border-2 border-primary/30 overflow-hidden">
+              <img
+                src="/my-new-logo.png"
+                alt="HyperX Logo"
+                className="w-5 h-5 object-contain"
+              />
+            </div>
+            <span className="font-bold text-lg">HyperX</span>
           </Link>
         )}
         {user && (
-          <div className="flex items-center gap-1 border border-border/40 rounded-lg p-1">
+          <div className="flex items-center gap-1.5">
             <Button
               variant="ghost"
               size="icon"
-              className="text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-full relative"
+              className="h-9 w-9 text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-lg relative"
               onClick={() => setIsNotificationModalOpen(true)}
             >
-              <Bell size={20} />
+              <Bell size={18} />
               {unreadNotificationsCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-medium">
+                <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-[9px] font-semibold">
                   {unreadNotificationsCount}
                 </span>
               )}
@@ -152,18 +161,18 @@ const Layout = ({ children }) => {
             <Button
               variant="ghost"
               size="icon"
-              className="text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-full"
+              className="h-9 w-9 text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-lg"
               onClick={handleHelpClick}
             >
-              <HelpCircle size={20} />
+              <HelpCircle size={18} />
             </Button>
             <Button
               variant="ghost"
               size="icon"
               onClick={toggleMobileMenu}
-              className="md:hidden"
+              className="h-9 w-9 md:hidden"
             >
-              {isMobileMenuOpen ? <X /> : <MoreVertical />}
+              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </Button>
           </div>
         )}
