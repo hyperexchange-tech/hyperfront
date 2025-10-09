@@ -19,7 +19,10 @@ import {
   Globe,
   Bell,
   HelpCircle,
-  CreditCard
+  CreditCard,
+  Search,
+  MessageSquare,
+  Grid3x3
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -34,6 +37,7 @@ const Layout = ({ children }) => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+  const [headerTab, setHeaderTab] = useState("wallet");
   const { getTotalBalance } = useWallet();
   const { user, logout } = useAuth();
   const { theme } = useTheme();
@@ -112,26 +116,89 @@ const Layout = ({ children }) => {
   const isExplorerPage = location.pathname === '/explorer';
   return (
     <div className="flex min-h-screen flex-col md:flex-row">
-      {!isExplorerPage && (
-        <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 md:hidden bg-background/95 backdrop-blur-md border-b border-border/30">
-        {user ? (
-          <div
-            onClick={() => navigate('/profile')}
-            className="flex items-center gap-2.5 cursor-pointer hover:opacity-80 transition-opacity"
-          >
-            <div className="w-9 h-9 rounded-full bg-white dark:bg-white flex items-center justify-center border-2 border-primary/30 overflow-hidden shrink-0">
-              <img
-                src="/my-new-logo.png"
-                alt="HyperX Logo"
-                className="w-6 h-6 object-contain"
-              />
+      {!isExplorerPage && user && (
+        <header className="sticky top-0 z-50 md:hidden bg-background/95 backdrop-blur-md border-b border-border/30">
+          <div className="flex items-center justify-between px-4 py-3">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleMobileMenu}
+              className="h-9 w-9 text-foreground hover:bg-muted/50 rounded-lg"
+            >
+              <Grid3x3 size={22} />
+            </Button>
+
+            <div className="flex items-center gap-1.5 bg-muted/40 rounded-full p-1">
+              <button
+                onClick={() => {
+                  setHeaderTab("exchange");
+                  navigate("/swap");
+                }}
+                className={cn(
+                  "px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+                  headerTab === "exchange"
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Exchange
+              </button>
+              <button
+                onClick={() => {
+                  setHeaderTab("wallet");
+                  navigate("/");
+                }}
+                className={cn(
+                  "px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+                  headerTab === "wallet"
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Wallet
+              </button>
             </div>
-            <div className="flex flex-col">
-              <span className="text-xs text-muted-foreground leading-none mb-0.5">Welcome back</span>
-              <span className="text-sm font-semibold text-foreground leading-none">{getUserName()}</span>
+
+            <div className="flex items-center gap-1.5">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-9 w-9 text-foreground hover:bg-muted/50 rounded-lg"
+                onClick={() => navigate("/explorer")}
+              >
+                <Globe size={20} />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-9 w-9 text-foreground hover:bg-muted/50 rounded-lg relative"
+                onClick={() => setIsNotificationModalOpen(true)}
+              >
+                <MessageSquare size={20} />
+                {unreadNotificationsCount > 0 && (
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-[9px] font-semibold">
+                    {unreadNotificationsCount}
+                  </span>
+                )}
+              </Button>
             </div>
           </div>
-        ) : (
+
+          <div className="px-4 pb-3">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Search"
+                className="w-full bg-muted/40 border-0 rounded-2xl pl-10 pr-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+          </div>
+        </header>
+      )}
+
+      {!isExplorerPage && !user && (
+        <header className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 md:hidden bg-background/95 backdrop-blur-md border-b border-border/30">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-white dark:bg-white flex items-center justify-center border-2 border-primary/30 overflow-hidden">
               <img
@@ -142,40 +209,6 @@ const Layout = ({ children }) => {
             </div>
             <span className="font-bold text-lg">HyperX</span>
           </Link>
-        )}
-        {user && (
-          <div className="flex items-center gap-1.5">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-9 w-9 text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-lg relative"
-              onClick={() => setIsNotificationModalOpen(true)}
-            >
-              <Bell size={18} />
-              {unreadNotificationsCount > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-white text-[9px] font-semibold">
-                  {unreadNotificationsCount}
-                </span>
-              )}
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-9 w-9 text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-lg"
-              onClick={handleHelpClick}
-            >
-              <HelpCircle size={18} />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleMobileMenu}
-              className="h-9 w-9 md:hidden"
-            >
-              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-            </Button>
-          </div>
-        )}
         </header>
       )}
 
