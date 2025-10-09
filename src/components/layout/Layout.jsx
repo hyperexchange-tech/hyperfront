@@ -132,7 +132,7 @@ const Layout = ({ children }) => {
               <button
                 onClick={() => {
                   setHeaderTab("exchange");
-                  navigate("/swap");
+                  navigate("/explorer");
                 }}
                 className={cn(
                   "px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
@@ -181,17 +181,6 @@ const Layout = ({ children }) => {
                   </span>
                 )}
               </Button>
-            </div>
-          </div>
-
-          <div className="px-4 pb-3">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Search"
-                className="w-full bg-muted/40 border-0 rounded-2xl pl-10 pr-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
-              />
             </div>
           </div>
         </header>
@@ -336,7 +325,6 @@ const Layout = ({ children }) => {
               { path: "/", label: "Home", icon: Home },
               { path: "/swap", label: "Swap", icon: Repeat },
               { path: "/card", label: "Card", icon: CreditCard },
-              { path: "/explorer", label: "Explorer", icon: Globe },
             ].map((item) => {
               const isActive = location.pathname === item.path;
               const Icon = item.icon;
