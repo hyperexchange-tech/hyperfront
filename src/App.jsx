@@ -21,6 +21,7 @@ import SignupPage from "@/pages/SignupPage";
 import PasswordReset from "@/components/auth/PasswordReset";
 import WelcomeAndPinSetup from "@/pages/WelcomeAndPinSetup";
 import Profile from "@/pages/Profile";
+import GiftCard from "@/pages/GiftCard";
 import { WalletProvider } from "@/context/WalletContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { ModalProvider } from "@/context/ModalContext";
@@ -88,6 +89,7 @@ const AppContent = () => {
                       <Route path="/settings" element={<Settings />} />
                       <Route path="/history" element={<HistoryPage />} />
                       <Route path="/explorer" element={<ExplorerPage />} />
+                      <Route path="/giftcard" element={<GiftCard />} />
                       <Route path="/setup-pin" element={<WelcomeAndPinSetup />} />
                       <Route path="/profile" element={<Profile />} />
                       <Route path="*" element={<Navigate to="/" replace />} />

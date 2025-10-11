@@ -146,7 +146,7 @@ const Layout = ({ children }) => {
               <button
                 onClick={() => {
                   setHeaderTab("giftcard");
-                  navigate("/explorer");
+                  navigate("/giftcard");
                 }}
                 className={cn(
                   "px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
