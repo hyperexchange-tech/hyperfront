@@ -131,20 +131,6 @@ const Layout = ({ children }) => {
             <div className="flex items-center gap-1.5 bg-muted/40 rounded-full p-1">
               <button
                 onClick={() => {
-                  setHeaderTab("exchange");
-                  navigate("/explorer");
-                }}
-                className={cn(
-                  "px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                  headerTab === "exchange"
-                    ? "bg-background text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                Exchange
-              </button>
-              <button
-                onClick={() => {
                   setHeaderTab("wallet");
                   navigate("/");
                 }}
@@ -156,6 +142,20 @@ const Layout = ({ children }) => {
                 )}
               >
                 Wallet
+              </button>
+              <button
+                onClick={() => {
+                  setHeaderTab("giftcard");
+                  navigate("/explorer");
+                }}
+                className={cn(
+                  "px-6 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+                  headerTab === "giftcard"
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Gift Card
               </button>
             </div>
 
